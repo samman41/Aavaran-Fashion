@@ -1,0 +1,211 @@
+:root {
+    --primary-font: 'Cinzel', serif;
+    --secondary-font: 'Montserrat', sans-serif;
+    --text-color: #fdfdfd;
+    --border-color: rgba(255, 255, 255, 0.4);
+    /* Overlay color helps text pop. Adjust opacity (0.7) if needed */
+    --bg-overlay: rgba(15, 10, 5, 0.65); 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--secondary-font);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: #111;
+    /* Prevent overscroll bounce on mobile */
+    overscroll-behavior-y: none;
+}
+
+/* Dynamic Background */
+#background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+    /* Slight zoom effect for premium feel */
+    transform: scale(1.02);
+}
+
+/* Dark Overlay for Readability */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(20,15,10,0.5) 0%, rgba(10,5,0,0.85) 100%);
+    z-index: -1;
+}
+
+/* Main Content Wrapper */
+.container {
+    width: 100%;
+    max-width: 480px; /* Optimized for phones */
+    padding: 50px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    overflow-y: auto;
+    /* Hide scrollbar for cleaner look */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Logo Area */
+.logo-container {
+    margin-bottom: 25px;
+    animation: fadeInDown 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.logo-container img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+    padding: 5px;
+    background: rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.4s ease;
+}
+
+.logo-container img:hover {
+    transform: scale(1.05);
+}
+
+/* Text Headers */
+.profile-info {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeIn 1.5s ease-out;
+    width: 100%;
+}
+
+.profile-info h1 {
+    font-family: var(--primary-font);
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.divider {
+    width: 30px;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0 auto 15px auto;
+}
+
+.profile-info p {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+}
+
+/* Buttons Section */
+.links-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    animation-delay: 0.3s;
+}
+
+/* Transparent Watermark Style Buttons */
+.link-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px 20px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    /* Glassmorphism blur effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Hover states and ripple effects */
+.link-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.link-btn:hover::before, .link-btn:active::before {
+    opacity: 1;
+}
+
+.link-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.save-contact-btn {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    font-weight: 500;
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.link-text {
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -7,15 +7,22 @@ const CONFIG = {
     logoPath: "image/logo.jpg",
     backgroundPath: "image/background image.png",
 
-    // Social & Contact Links
-    links: [
-        { id: "instagram", label: "Instagram", url: "https://www.instagram.com/aavaranfashionattire?stkn=MW1uM3FpcGVsYjlhag%3D%3D" },
-        { id: "tiktok", label: "TikTok", url: "https://www.tiktok.com/@aavaranfashionattire?_r=1&_t=ZS-99aHiIzBITF" },
-        { id: "facebook", label: "Facebook", url: "https://www.facebook.com/share/1QMKX5Ekjc/" },
-        { id: "whatsapp", label: "WhatsApp", url: "https://wa.me/1234567890" },
-        { id: "gmail", label: "Email Us", url: "mailto:contact@aavaran.com" },
-        { id: "location", label: "Location", url: "https://maps.app.goo.gl/UEfUks4VwjykiFGL6?g_st=ac" }
+    // Primary Action Buttons (Grid)
+    actions: [
+        { id: "call", label: "Call Now", url: "tel:+1234567890", icon: "fas fa-phone-alt" },
+        { id: "gmail", label: "Email Us", url: "mailto:contact@aavaran.com", icon: "fas fa-envelope" },
+        { id: "location", label: "Location", url: "https://maps.app.goo.gl/UEfUks4VwjykiFGL6?g_st=ac", icon: "fas fa-map-marker-alt" }
     ],
+
+    // Social Media Links (Small circular icons)
+    socials: [
+        { id: "instagram", url: "https://www.instagram.com/aavaranfashionattire?stkn=MW1uM3FpcGVsYjlhag%3D%3D", icon: "fab fa-instagram" },
+        { id: "tiktok", url: "https://www.tiktok.com/@aavaranfashionattire?_r=1&_t=ZS-99aHiIzBITF", icon: "fab fa-tiktok" },
+        { id: "facebook", url: "https://www.facebook.com/share/1QMKX5Ekjc/", icon: "fab fa-facebook-f" }
+    ],
+
+    // Direct WhatsApp Link
+    whatsappUrl: "https://wa.me/1234567890",
 
     // Save Contact (vCard) Details for Address Book
     vcard: {
@@ -37,30 +44,60 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('profile-name').textContent = CONFIG.name;
     document.getElementById('profile-title').textContent = CONFIG.title;
 
-    // 3. Generate Link Buttons Dynamically
-    const linksContainer = document.getElementById('links-container');
-    CONFIG.links.forEach(link => {
+    // 3. Generate Social Icons
+    const socialsRow = document.getElementById('socials-row');
+    CONFIG.socials.forEach(social => {
         const a = document.createElement('a');
-        a.href = link.url;
-        a.className = 'link-btn';
+        a.href = social.url;
+        a.className = 'social-icon';
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
-
-        const span = document.createElement('span');
-        span.className = 'link-text';
-        span.textContent = link.label;
-
-        a.appendChild(span);
-        linksContainer.appendChild(a);
+        
+        const i = document.createElement('i');
+        i.className = social.icon;
+        a.appendChild(i);
+        
+        socialsRow.appendChild(a);
     });
 
-    // 4. Handle 'Save Contact' Generation (vCard format)
+    // 4. Generate Action Grid Buttons
+    const actionsGrid = document.getElementById('actions-grid');
+    CONFIG.actions.forEach(action => {
+        const a = document.createElement('a');
+        a.href = action.url;
+        a.className = 'action-btn';
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        
+        const i = document.createElement('i');
+        i.className = action.icon;
+        
+        const span = document.createElement('span');
+        span.textContent = action.label;
+        
+        a.appendChild(i);
+        a.appendChild(span);
+        actionsGrid.appendChild(a);
+    });
+
+    // 5. Setup WhatsApp
+    document.getElementById('whatsapp-btn').href = CONFIG.whatsappUrl;
+
+    // 6. Handle 'Save Contact' Generation (vCard format)
     const saveBtn = document.getElementById('save-contact-btn');
     saveBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const v = CONFIG.vcard;
 
         // Construct vCard 3.0 String
+        const notes = [];
+        const locationUrl = CONFIG.actions.find(a => a.id === 'location')?.url || '';
+        if (locationUrl) notes.push(`Location: ${locationUrl}`);
+        notes.push(`WhatsApp: ${CONFIG.whatsappUrl}`);
+        CONFIG.socials.forEach(s => {
+            notes.push(`${s.id.charAt(0).toUpperCase() + s.id.slice(1)}: ${s.url}`);
+        });
+
         const vcardData = [
             "BEGIN:VCARD",
             "VERSION:3.0",
@@ -70,6 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
             `TEL;TYPE=WORK,VOICE:${v.phone}`,
             `EMAIL;TYPE=PREF,INTERNET:${v.email}`,
             `URL:${v.website}`,
+            ...CONFIG.socials.map(s => `X-SOCIALPROFILE;type=${s.id}:${s.url}`),
+            `NOTE:${notes.join("\\n")}`,
             "END:VCARD"
         ].join("\r\n");
 

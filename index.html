@@ -8,10 +8,12 @@
     <!-- Modern Elegant Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Linked Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -31,13 +33,23 @@
             <p id="profile-title"></p>
         </div>
 
-        <div class="links-container" id="links-container">
-            <!-- Dynamic Links Injected Here -->
+        <!-- Social Icons Row -->
+        <div class="socials-row" id="socials-row">
+            <!-- Dynamic Socials -->
         </div>
 
-        <div class="links-container" style="margin-top: 5px; animation-delay: 0.5s;">
-            <a href="#" class="link-btn save-contact-btn" id="save-contact-btn">
-                <span class="link-text">Save Contact</span>
+        <!-- Action Grid (Call, Email, Location) -->
+        <div class="actions-grid" id="actions-grid">
+            <!-- Dynamic Actions -->
+        </div>
+
+        <!-- Primary Actions (WhatsApp, Save Contact) -->
+        <div class="primary-actions">
+            <a href="#" class="whatsapp-btn" id="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> WhatsApp Us
+            </a>
+            <a href="#" class="btn-primary" id="save-contact-btn">
+                <i class="fas fa-user-plus"></i> Save Contact
             </a>
         </div>
     </div>

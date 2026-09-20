@@ -149,16 +149,18 @@ body {
     color: #fff;
 }
 
-/* Action Grid (Call, Email, Location) */
 .actions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     width: 100%;
     margin-bottom: 30px;
     animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     opacity: 0;
     animation-delay: 0.3s;
+}
+.actions-grid .action-btn:nth-child(4) {
+    grid-column: 2;
 }
 .action-btn {
     display: flex;

@@ -129,9 +129,22 @@ document.addEventListener('DOMContentLoaded', () => {
             `URL:${CONFIG.whatsappUrl}`
         ];
 
-        // Add socials as URLs so they are clickable websites in the contact
+        // Add socials as clickable websites and social profiles in the contact
         CONFIG.socials.forEach(s => {
             vcardDataArray.push(`URL:${s.url}`);
+            
+            // Map social IDs to vCard types
+            let socialType = s.id.toLowerCase();
+            if (socialType === 'instagram' || socialType === 'tiktok' || socialType === 'facebook') {
+                 vcardDataArray.push(`X-SOCIALPROFILE;TYPE=${socialType}:${s.url}`);
+            }
+        });
+        
+        // Add other action locations/links (like Location) to the vCard
+        CONFIG.actions.forEach(a => {
+            if (a.url && !a.url.startsWith('tel:') && !a.url.startsWith('mailto:')) {
+                vcardDataArray.push(`URL:${a.url}`);
+            }
         });
 
         vcardDataArray.push(`NOTE:${notes}`);

@@ -54,6 +54,29 @@ document.addEventListener('DOMContentLoaded', () => {
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
 
+        // Deep linking logic for Facebook
+        if (social.id === 'facebook') {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isAndroid = /Android/i.test(navigator.userAgent);
+                const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                
+                if (isAndroid) {
+                    // Android intent with fallback
+                    window.location.href = `intent://facewebmodal/f?href=${social.url}#Intent;package=com.facebook.katana;scheme=fb;S.browser_fallback_url=${encodeURIComponent(social.url)};end`;
+                } else if (isIOS) {
+                    // iOS app scheme with fallback
+                    setTimeout(() => {
+                        window.location.href = social.url;
+                    }, 1500);
+                    window.location.href = `fb://facewebmodal/f?href=${social.url}`;
+                } else {
+                    // Desktop
+                    window.open(social.url, '_blank');
+                }
+            });
+        }
+
         const i = document.createElement('i');
         i.className = social.icon;
         a.appendChild(i);

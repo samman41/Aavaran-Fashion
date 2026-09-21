@@ -1,7 +1,7 @@
 const CONFIG = {
     // Profile Details
     name: "AAVARAN FASHION",
-    title: "Boutique Elegance",
+    title: "PRATIKSHYA SHRESTHA",
 
     // Paths to Images (Ensure these match the actual files in your directory)
     logoPath: "image/logo.jpg",
@@ -163,4 +163,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Restore button text
         saveBtn.innerHTML = originalText;
     });
+
+    // 7. Scroll Animation
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('hero-header');
+        if (window.scrollY > 30) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // 8. Scroll Down Indicator Click
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            window.scrollTo({
+                top: window.innerHeight * 0.8,
+                behavior: 'smooth'
+            });
+        });
+    }
 });

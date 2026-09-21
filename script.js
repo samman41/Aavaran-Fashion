@@ -19,7 +19,7 @@ const CONFIG = {
     socials: [
         { id: "instagram", url: "https://www.instagram.com/aavaranfashionattire?stkn=MW1uM3FpcGVsYjlhag%3D%3D", icon: "fab fa-instagram" },
         { id: "tiktok", url: "https://www.tiktok.com/@aavaranfashionattire?_r=1&_t=ZS-99aHiIzBITF", icon: "fab fa-tiktok" },
-        { id: "facebook", url: "https://www.facebook.com/share/1QMKX5Ekjc/", icon: "fab fa-facebook-f" }
+        { id: "facebook", url: "https://www.facebook.com/pratikshya.shrestha3", icon: "fab fa-facebook-f" }
     ],
 
     // Direct WhatsApp Link
